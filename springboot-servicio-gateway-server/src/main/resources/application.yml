@@ -1,0 +1,34 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: servicio-productos
+        uri: lb://servicio-productos
+        predicates:
+          - Path=/api/productos/**
+#          - Header= token, \d+
+#          - Header=Content-Type, application/json
+#          - Method=GET, POST
+#          - Query=color, verde
+#          - Cookie=color, azul
+        filters:
+          - StripPrefix=2
+#          - FabricaFiltro=Hola MarkCod3, usuario, MarcosMaganaH
+          - EjemploCookie=Hola MarkCod3, usuario, MarcosMaganaH2
+#          - name: FabricaFiltro
+#            args:
+#              mensaje: Hola MarkCode
+#              cookieNombre: usuario
+#              cookieValor: MarcosMagana
+      - id: servicio-items
+        uri: lb://servicio-items
+        predicates:
+          - Path=/api/items/**
+        filters:
+          - StripPrefix=2
+          - AddRequestHeader=token-request, 123467
+          - AddResponseHeader=token-response, 678901
+          - AddRequestParameter=nombre, markcode
+      
+      
+      
