@@ -39,8 +39,9 @@ public class ProductoController {
 		return productoService.findAll()
 				.stream()
 				.map(producto -> {
-					producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
-					//producto.setPort(port);
+					//producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+					producto.setPort(port);
+					logger.info("port: " + port);
 					return producto;
 				}).collect(Collectors.toList());
 	}
@@ -58,8 +59,8 @@ public class ProductoController {
 		
 		
 		Producto producto = productoService.findById(id);
-		producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
-		//producto.setPort(port);
+		//producto.setPort(Integer.parseInt(env.getProperty("local.server.port")));
+		producto.setPort(port);
 		logger.info("port: " + port);
 		
 		return producto;

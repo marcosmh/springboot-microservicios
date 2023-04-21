@@ -6,7 +6,8 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<!-- <version>3.0.5</version> -->
-		<version>2.3.12.RELEASE</version>
+		<!-- <version>2.3.12.RELEASE</version>-->
+		<version>2.5.3</version> <!-- version para utilizar Resilence4J -->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>springboot-servicio.app.gateway</groupId>
@@ -19,7 +20,8 @@
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.2</spring-cloud.version>-->
 		<java.version>11</java.version>
-		<spring-cloud.version>Hoxton.SR12</spring-cloud.version>
+		<!-- <spring-cloud.version>Hoxton.SR12</spring-cloud.version>-->
+		<spring-cloud.version>2020.0.3</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -41,6 +43,16 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
