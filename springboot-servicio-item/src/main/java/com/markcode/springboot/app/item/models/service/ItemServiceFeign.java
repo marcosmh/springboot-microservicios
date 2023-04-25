@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.markcode.springboot.app.item.clientes.ProductoClienteRest;
 import com.markcode.springboot.app.item.models.Item;
-import com.markcode.springboot.app.item.models.Producto;
+import springbootservicio.app.commons.models.entity.Producto;
 
 @Service("serviceFeign")
 @Primary

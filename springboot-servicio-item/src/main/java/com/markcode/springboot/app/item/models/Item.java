@@ -1,6 +1,6 @@
 package com.markcode.springboot.app.item.models;
 
-
+import springbootservicio.app.commons.models.entity.Producto;
 
 public class Item {
 	

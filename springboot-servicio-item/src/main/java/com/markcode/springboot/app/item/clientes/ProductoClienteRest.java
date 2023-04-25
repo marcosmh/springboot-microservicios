@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.markcode.springboot.app.item.models.Producto;
+import springbootservicio.app.commons.models.entity.Producto;
 
 @FeignClient(name="servicio-productos")
 public interface ProductoClienteRest {

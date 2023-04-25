@@ -2,7 +2,7 @@ package com.markcode.springboot.app.productos.models.service;
 
 import java.util.List;
 
-import com.markcode.springboot.app.productos.models.entity.Producto;
+import springbootservicio.app.commons.models.entity.Producto;
 
 public interface IProducto {
 
@@ -12,4 +12,6 @@ public interface IProducto {
 	Producto save(Producto producto);
 	
 	void deleteById(Long id);
+	
+	
 }
