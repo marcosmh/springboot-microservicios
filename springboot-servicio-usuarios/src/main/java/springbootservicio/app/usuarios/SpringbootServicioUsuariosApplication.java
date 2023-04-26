@@ -2,7 +2,9 @@ package springbootservicio.app.usuarios;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+@EntityScan({"springbootservicio.app.commons.usuarios.models.entity"})
 @SpringBootApplication
 public class SpringbootServicioUsuariosApplication {
 
