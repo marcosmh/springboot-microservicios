@@ -18,7 +18,7 @@ import springbootservicio.app.commons.usuarios.models.entity.Usuario;
 import springbootservicio.app.oauth.clients.UsuarioFeignClient;
 
 @Service
-public class UsuarioService implements UserDetailsService {
+public class UsuarioService implements IUsuarioService, UserDetailsService {
 	
 	private final Logger logger = LoggerFactory.getLogger(UserDetailsService.class);
 	
@@ -27,6 +27,7 @@ public class UsuarioService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		logger.info("UsuarioService.loadUserByUsername [ini]");
 		Usuario usuario = client.findByUsername(username);
 		
 		if(usuario == null) {
@@ -44,6 +45,12 @@ public class UsuarioService implements UserDetailsService {
 		
 		return new User(usuario.getUserName(), usuario.getPassword(), usuario.getEnabled(), 
 				true, true, true, authorities);
+	}
+
+	@Override
+	public Usuario findByUsername(String username) {
+		logger.info("UsuarioService.findByUsername [ini]");
+		return client.findByUsername(username);
 	}
 
 }
