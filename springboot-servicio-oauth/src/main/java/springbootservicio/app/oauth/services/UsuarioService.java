@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import feign.FeignException;
 import springbootservicio.app.commons.usuarios.models.entity.Role;
 import springbootservicio.app.commons.usuarios.models.entity.Usuario;
 import springbootservicio.app.oauth.clients.UsuarioFeignClient;
@@ -31,28 +32,32 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("UsuarioService.loadUserByUsername [ini]");
 		logger.info("username= "+username);
-		Usuario usuario = client.findByUserName(username);
 		
-		if(usuario == null) {
-			logger.info("username: ${username}");
-			throw new UsernameNotFoundException("Error en el login, no existe el usuario "+username+" en el sistema");
+		try  {
+			
+			Usuario usuario = client.findByUserName(username);
+			logger.info(usuario.toString());
+			setRoles(usuario);
+			
+			logger.info("hacer authorities...");
+			List<GrantedAuthority> authorities = usuario.getRoles()
+					.stream()
+					.map(role -> new SimpleGrantedAuthority(role.getNombre()))
+					.peek(authority -> logger.info("Role: " + authority.getAuthority()))
+					.collect(Collectors.toList());
+			
+			logger.info("Usuario autenticado: " +  usuario.getUserName());
+			
+			return new User(usuario.getUserName(), usuario.getPassword(), usuario.getEnabled(), 
+					true, true, true, authorities);
+			
+		} catch( FeignException e) {
+			String mensaje = "Error en el login, no existe el usuario "+username+" en el sistema";
+			logger.error(mensaje);
+			throw new UsernameNotFoundException(mensaje);
 		}
 		
-		logger.info("hacer authorities...");
-		logger.info(usuario.toString());
 		
-		setRoles(usuario);
-		
-		List<GrantedAuthority> authorities = usuario.getRoles()
-				.stream()
-				.map(role -> new SimpleGrantedAuthority(role.getNombre()))
-				.peek(authority -> logger.info("Role: " + authority.getAuthority()))
-				.collect(Collectors.toList());
-		
-		logger.info("Usuario autenticado: " +  usuario.getUserName());
-		
-		return new User(usuario.getUserName(), usuario.getPassword(), usuario.getEnabled(), 
-				true, true, true, authorities);
 	}
 
 	
