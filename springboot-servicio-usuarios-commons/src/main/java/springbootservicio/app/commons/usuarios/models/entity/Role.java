@@ -22,7 +22,18 @@ public class Role implements Serializable {
 	@Column(name = "nombre", unique = true, length = 30)
 	private String nombre;
 
+	public Role() {
+		
+	}
 	
+
+	public Role(Long id, String nombre) {
+		this.id = id;
+		this.nombre = nombre;
+	}
+
+
+
 	public Long getId() {
 		return id;
 	}

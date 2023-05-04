@@ -14,7 +14,7 @@ import springbootservicio.app.commons.usuarios.models.entity.Usuario;
 public interface UsuarioDAO extends PagingAndSortingRepository<Usuario, Long> {
 
 	@RestResource(path = "buscar-username")
-	Usuario findByUserName(@Param("nombre") String username);
+	Usuario findByUserName(@Param("username") String username);
 	
 	@Query("select u from Usuario u where u.userName=?1")
 	Usuario obtenerPorUsername(String username);
