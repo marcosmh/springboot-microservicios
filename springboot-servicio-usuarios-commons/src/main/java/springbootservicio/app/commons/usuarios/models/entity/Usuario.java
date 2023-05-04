@@ -47,9 +47,10 @@ public class Usuario implements Serializable {
 	@JoinTable( name = "usuarios_roles", 
 		joinColumns = @JoinColumn(name="usuario_id"), inverseJoinColumns = @JoinColumn(name="role_id"),
 		uniqueConstraints = { @UniqueConstraint(columnNames = {"usuario_id","role_id"})} )
-	List<Role> roles;
+	private List<Role> roles;
 
-	
+	@Column(name = "intentos")
+	private Integer intentos;
 
 	public Long getId() {
 		return id;
@@ -114,12 +115,24 @@ public class Usuario implements Serializable {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+	
+	
+	public Integer getIntentos() {
+		return intentos;
+	}
+
+	public void setIntentos(Integer intentos) {
+		this.intentos = intentos;
+	}
 
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", userName=" + userName + ", password=" + password + ", enabled=" + enabled
-				+ ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", roles=" + roles + "]";
+				+ ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", roles=" + roles
+				+ ", intentos=" + intentos + "]";
 	}
+
+	
 	
 	
 	

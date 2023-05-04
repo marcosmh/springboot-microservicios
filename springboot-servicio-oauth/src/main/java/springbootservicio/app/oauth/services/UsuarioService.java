@@ -31,7 +31,6 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("UsuarioService.loadUserByUsername [ini]");
 		logger.info("username= "+username);
-		//Usuario usuario = client.findByUsername(username);
 		Usuario usuario = client.findByUserName(username);
 		
 		if(usuario == null) {
@@ -60,7 +59,6 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 	@Override
 	public Usuario findByUsername(String username) {
 		logger.info("UsuarioService.findByUsername [ini]");
-		//return client.findByUsername(username);
 		return client.findByUserName(username);
 	}
 	
@@ -74,6 +72,13 @@ public class UsuarioService implements IUsuarioService, UserDetailsService {
 			list.add(rol2);
 			usuario.setRoles(list);
 		}
+	}
+
+
+	@Override
+	public Usuario update(Usuario usuario, Long id) {
+		logger.info("UsuarioService.update [ini]");
+		return client.update(usuario, id);
 	}
 
 }
