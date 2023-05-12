@@ -1,6 +1,7 @@
 package springbootservicio.app.zuul.oauth;
 
 import java.util.Arrays;
+import java.util.Base64;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -100,7 +101,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter tokenConverter = new JwtAccessTokenConverter();
-		tokenConverter.setSigningKey(jwtKey);
+		//tokenConverter.setSigningKey(jwtKey);
+		tokenConverter.setSigningKey(Base64.getEncoder().encodeToString(jwtKey.getBytes()));
+		
 		return tokenConverter;
 	}
 	
