@@ -38,6 +38,7 @@ import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 
 @RefreshScope
 @RestController
+@SuppressWarnings("rawtypes")
 public class ItemController {
 	
 	private final Logger logger = LoggerFactory.getLogger(ItemController.class);
@@ -48,6 +49,7 @@ public class ItemController {
 	@Value("${configuracion.texto}")
 	private String texto;
 
+	
 	@Autowired
 	private CircuitBreakerFactory cbFactory;
 	
